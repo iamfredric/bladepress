@@ -29,7 +29,7 @@ class TemplateLocator
         $this->viewsPath = $viewsPath;
         $this->extension = $extension;
 
-        $templates = config('views.routes');
+        $templates = $this->getRoutes();
 
         foreach ($templates as $type => $template) {
             $this->addFilterFor($type, $template);
@@ -175,5 +175,97 @@ class TemplateLocator
         }
 
         return $template;
+    }
+
+    private function getRoutes()
+    {
+        return [
+            'frontpage' => [
+                'front-page.php'
+            ],
+
+            'index' => [
+                'index.php'
+            ],
+
+            '404' => [
+                '404.php'
+            ],
+
+            'archive' => [
+                'archive-[POST_TYPE].php',
+                'archive.php'
+            ],
+
+            'author' => [
+                'author-[USER_NICENAME].php',
+                'author-[ID].php',
+                'author.php'
+            ],
+
+            'category' => [
+                'category-[SLUG].php',
+                'category-[TERM_ID].php',
+                'category.php'
+            ],
+
+            'tag' => [
+                'tag-[SLUG].php',
+                'tag-[TERM_ID].php',
+                'tag.php'
+            ],
+
+            'taxonomy' => [
+                'taxonomy-[TERM_TAXONOMY]-[SLUG].php',
+                'taxonomy-[TERM_TAXONOMY].php',
+                'taxonomy.php'
+            ],
+
+            'date' => [
+                'date.php'
+            ],
+
+            'home' => [
+                'home.php',
+                'index.php'
+            ],
+
+            'page' => [
+                'page-[PAGENAME].php',
+                'page-[ID].php',
+                'page.php'
+            ],
+
+            'paged' => [
+                'paged.php'
+            ],
+
+            'search' => [
+                'search.php'
+            ],
+
+            'single' => [
+                'single-[POST_TYPE]-[POST_NAME].php',
+                'single-[POST_TYPE].php',
+                'single.php'
+            ],
+
+            'embed' => [
+                'embed-[POST_TYPE]-[POST_FORMAT].php',
+                'embed-[POST_TYPE].php',
+                'embed.php'
+            ],
+
+            'singular' => [
+                'singular.php'
+            ],
+
+            'attachment' => [
+                '[ATTACHMENT_TYPE]-[ATTACHMENT_SUBTYPE].php',
+                '[ATTACHMENT_SUBTYPE].php',
+                '[ATTACHMENT_TYPE].php',
+                'attachment.php'
+            ]
+        ];
     }
 }
