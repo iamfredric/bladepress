@@ -33,17 +33,23 @@ class BladeTemplateEngine implements Templating
     private $data = [];
 
     /**
+     * @var array
+     */
+    private $composerRoutes = [];
+
+    /**
      * BladeTemplateEngine constructor
      *
      * @param string $path      The requested path
      * @param string $viewsPath The path to the views directory
      * @param string $cachePath The path to the cache directory
      */
-    public function __construct($path, $viewsPath, $cachePath)
+    public function __construct($path, $viewsPath, $cachePath, $composerRoutes)
     {
         $this->path = $path;
         $this->viewsPath = $viewsPath;
         $this->cachePath = $cachePath;
+        $this->composerRoutes = $composerRoutes;
     }
 
     /**
@@ -81,7 +87,7 @@ class BladeTemplateEngine implements Templating
 
     private function setupComposers(BladeInstance $blade)
     {
-        foreach (config('routes') as $route => $class) {
+        foreach ($this->composerRoutes as $route => $class) {
             $blade->composer($route, function ($view) use ($class) {
                 return (new $class)->compose($view);
             });

@@ -14,12 +14,12 @@ class TemplateEngine
      *
      * @return \App\Contracts\Wordpress\Templating\Templating
      */
-    public static function make($path, array $config = [])
+    public static function make($path, array $config = [], $composerRoutes = [])
     {
         $viewsPath = self::getTemplateViewsPath($config);
         $cachePath = self::getTemplateCachePath($config);
 
-        return self::initializeTemplateProvider($config, $path, $viewsPath, $cachePath);
+        return self::initializeTemplateProvider($config, $path, $viewsPath, $cachePath, $composerRoutes);
     }
 
     /**
@@ -33,7 +33,7 @@ class TemplateEngine
      * @return \App\Contracts\Wordpress\Templating\Templating
      * @throws \Exception
      */
-    public static function initializeTemplateProvider($config, $path, $viewsPath, $cachePath)
+    public static function initializeTemplateProvider($config, $path, $viewsPath, $cachePath, $composerRoutes)
     {
         if (! isset($config['provider'])) {
             throw new \Exception(
@@ -41,7 +41,7 @@ class TemplateEngine
             );
         }
 
-        $class = new $config['provider']($path, $viewsPath, $cachePath);
+        $class = new $config['provider']($path, $viewsPath, $cachePath, $composerRoutes);
 
         if (! $class instanceof Templating) {
             throw new \Exception(
