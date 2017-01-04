@@ -1,0 +1,20 @@
+{
+    "name": "iamfredric/bladepress",
+    "description": "Enables blade support in wordpress",
+    "require": {
+        "duncan3dc/blade": "^3.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Bladepress\\": "src/"
+        }
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Fredric Lovefors",
+            "email": "fredric@panang.se"
+        }
+    ],
+    "minimum-stability": "dev"
+}
