@@ -14,7 +14,7 @@ class Engine
         );
 
         add_filter('template_include', function ($path) use ($viewsPath, $cachePath) {
-            $template = \App\Wordpress\Templating\TemplateEngine::make($path, [
+            $template = TemplateEngine::make($path, [
                 'provider' => BladeTemplateEngine::class,
                 'views_path' => $viewsPath,
                 'cache_path' => $cachePath
