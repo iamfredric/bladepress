@@ -38,18 +38,24 @@ class BladeTemplateEngine implements Templating
     private $composerRoutes = [];
 
     /**
+     * @var array
+     */
+    private $directives = [];
+
+    /**
      * BladeTemplateEngine constructor
      *
      * @param string $path      The requested path
      * @param string $viewsPath The path to the views directory
      * @param string $cachePath The path to the cache directory
      */
-    public function __construct($path, $viewsPath, $cachePath, $composerRoutes)
+    public function __construct($path, $viewsPath, $cachePath, $composerRoutes, $directives)
     {
         $this->path = $path;
         $this->viewsPath = $viewsPath;
         $this->cachePath = $cachePath;
         $this->composerRoutes = $composerRoutes;
+        $this->directives = $directives;
     }
 
     /**
@@ -68,6 +74,7 @@ class BladeTemplateEngine implements Templating
         $blade = $this->setUpBlade();
 
         $this->setupComposers($blade);
+        $this->setupDirectives($blade);
 
         echo $blade->render(
             $path,
@@ -91,6 +98,13 @@ class BladeTemplateEngine implements Templating
             $blade->composer($route, function ($view) use ($class) {
                 return (new $class)->compose($view);
             });
+        }
+    }
+
+    private function setupDirectives(BladeInstance $blade)
+    {
+        foreach ($this->directives as $name => $handler) {
+            $blade->directive($name, $handler);
         }
     }
 

@@ -11,7 +11,7 @@ interface Templating
      * @param string $viewsPath
      * @param string $cachePath
      */
-    public function __construct($path, $viewsPath, $cachePath, $composerRoutes);
+    public function __construct($path, $viewsPath, $cachePath, $composerRoutes, $directives);
 
     /**
      * Executor of the setup
