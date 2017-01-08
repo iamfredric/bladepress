@@ -19,18 +19,4 @@ interface Templating
      * @return string | void
      */
     public function make();
-
-    /**
-     * Sets the data on the instance
-     *
-     * @param $data
-     */
-    public function setData($data);
-
-    /**
-     * Gets the data on the instance
-     *
-     * @return TemplateData
-     */
-    public function getData();
 }

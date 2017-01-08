@@ -77,19 +77,8 @@ class BladeTemplateEngine implements Templating
         $this->setupDirectives($blade);
 
         echo $blade->render(
-            $path,
-            $this->getData()
+            $path
         );
-    }
-
-    /**
-     * View data setter
-     *
-     * @param $data
-     */
-    public function setData($data)
-    {
-        $this->data = $data->get();
     }
 
     private function setupComposers(BladeInstance $blade)
@@ -106,16 +95,6 @@ class BladeTemplateEngine implements Templating
         foreach ($this->directives as $name => $handler) {
             $blade->directive($name, $handler);
         }
-    }
-
-    /**
-     * View data getter
-     *
-     * @return TemplateData
-     */
-    public function getData()
-    {
-        return $this->data;
     }
 
     /**
