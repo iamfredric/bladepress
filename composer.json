@@ -2,7 +2,7 @@
     "name": "iamfredric/bladepress",
     "description": "Enables blade support in wordpress",
     "require": {
-        "duncan3dc/blade": "^3.3"
+        "duncan3dc/blade": "^3.4"
     },
     "autoload": {
         "psr-4": {
