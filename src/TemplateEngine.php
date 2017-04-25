@@ -33,7 +33,7 @@ class TemplateEngine
      * @return \App\Contracts\Wordpress\Templating\Templating
      * @throws \Exception
      */
-    public static function initializeTemplateProvider($config, $path, $viewsPath, $cachePath, $composerRoutes, $directives)
+    public static function initializeTemplateProvider($config, $path, $viewsPath, $cachePath, $composerRoutes, $directives, $shared)
     {
         if (! isset($config['provider'])) {
             throw new \Exception(
@@ -41,7 +41,7 @@ class TemplateEngine
             );
         }
 
-        $class = new $config['provider']($path, $viewsPath, $cachePath, $composerRoutes, $directives);
+        $class = new $config['provider']($path, $viewsPath, $cachePath, $composerRoutes, $directives, $shared);
 
         if (! $class instanceof Templating) {
             throw new \Exception(
