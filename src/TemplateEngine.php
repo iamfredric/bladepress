@@ -14,12 +14,12 @@ class TemplateEngine
      *
      * @return \App\Contracts\Wordpress\Templating\Templating
      */
-    public static function make($path, array $config = [], $composerRoutes = [], $directives = [])
+    public static function make($path, array $config = [], $composerRoutes = [], $directives = [], $shared = [])
     {
         $viewsPath = self::getTemplateViewsPath($config);
         $cachePath = self::getTemplateCachePath($config);
 
-        return self::initializeTemplateProvider($config, $path, $viewsPath, $cachePath, $composerRoutes, $directives);
+        return self::initializeTemplateProvider($config, $path, $viewsPath, $cachePath, $composerRoutes, $directives, $shared);
     }
 
     /**

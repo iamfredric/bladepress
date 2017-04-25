@@ -43,19 +43,25 @@ class BladeTemplateEngine implements Templating
     private $directives = [];
 
     /**
+     * @var array
+     */
+    private $shared = [];
+
+    /**
      * BladeTemplateEngine constructor
      *
      * @param string $path      The requested path
      * @param string $viewsPath The path to the views directory
      * @param string $cachePath The path to the cache directory
      */
-    public function __construct($path, $viewsPath, $cachePath, $composerRoutes, $directives)
+    public function __construct($path, $viewsPath, $cachePath, $composerRoutes, $directives, $shared)
     {
         $this->path = $path;
         $this->viewsPath = $viewsPath;
         $this->cachePath = $cachePath;
         $this->composerRoutes = $composerRoutes;
         $this->directives = $directives;
+        $this->shared = $shared;
     }
 
     /**
@@ -74,6 +80,7 @@ class BladeTemplateEngine implements Templating
         $blade = $this->setUpBlade();
 
         $this->setupComposers($blade);
+        $this->setupSharedParams($blade);
         $this->setupDirectives($blade);
 
         echo $blade->render(
@@ -87,6 +94,13 @@ class BladeTemplateEngine implements Templating
             $blade->composer($route, function ($view) use ($class) {
                 return (new $class)->compose($view);
             });
+        }
+    }
+
+    private function setupSharedParams(BladeInstance $blade)
+    {
+        foreach ($this->shared as $param => $class) {
+            $blade->share($param, (new $class)->share());
         }
     }
 
